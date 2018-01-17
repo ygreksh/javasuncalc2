@@ -372,9 +372,20 @@ public class AstroCalc {
 
     }
     //Гринвичское звездное время
-    /*public static double getGST(Calendar date){
+    public static double getGST(Calendar date){
         //Здесь пока ничего нет
         //но скоро будет
-        return 0;
-    }*/
+        int Days = (int) getFragmentaryOfDayByTime(date);
+        System.out.println("Количество дней от начала года = " + Days);
+        double A = 0.0657098;
+        double B = calcB(date);
+        double C = 1.002738;
+        double T0 = Days*A - B;
+        double Hours = getFragmentaryHourOfDay(date);
+        double GST = Hours*C + T0;
+        if (GST < 0) GST += 24;
+        if (GST > 24) GST -= 24;
+        System.out.println("GST = " + GST);
+        return GST;
+    }
 }
