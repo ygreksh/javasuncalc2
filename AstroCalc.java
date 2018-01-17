@@ -56,12 +56,13 @@ public class AstroCalc {
     }
     //получение дробной части дня из времени дна (полдень = 0.5)
     public static double getFragmentaryOfDayByTime(Calendar time){
+        int day = time.get(Calendar.DAY_OF_YEAR);
         int hour = time.get(Calendar.HOUR_OF_DAY);
         int min = time.get(Calendar.MINUTE);
         int sec = time.get(Calendar.SECOND);
-        double fragmentaryOfMin = sec/60.0;
+        double fragmentaryOfMin = min + sec/60.0;
         double fragmentaryOfHour = hour + fragmentaryOfMin/60.0;
-        double fragmentaryOfDay = fragmentaryOfHour/24.0;
+        double fragmentaryOfDay = day + fragmentaryOfHour/24.0;
         return fragmentaryOfDay;
     }
     //вычисление дня недели
@@ -367,7 +368,8 @@ public class AstroCalc {
         System.out.println("SG = " + SG);
         double ST = SG + Lon; // местное звездное время
         System.out.println("ST = " + ST);
-        double ST2 = convertTimeGMTToGST(date);
+        //double ST2 = convertTimeGMTToGST(date);
+        double ST2 = getGST(date);
         System.out.println("ST2 = " + ST2);
 
     }
@@ -378,10 +380,12 @@ public class AstroCalc {
         int Days = (int) getFragmentaryOfDayByTime(date);
         System.out.println("Количество дней от начала года = " + Days);
         double A = 0.0657098;
-        double B = calcB(date);
+        double B = 17.411462;//calcB(date);
         double C = 1.002738;
         double T0 = Days*A - B;
+        System.out.println("T0 = " + T0);
         double Hours = getFragmentaryHourOfDay(date);
+        System.out.println("Hours = " + Hours);
         double GST = Hours*C + T0;
         if (GST < 0) GST += 24;
         if (GST > 24) GST -= 24;

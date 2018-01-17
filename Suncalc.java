@@ -5,10 +5,13 @@ public class Suncalc {
     public static void main(String[] arg){
         double Lon = 41.43147; //долгота
         double Lat = 43.64986;
-        int Year = 2009;
-        int Mon = 6;
-        int Day = 19;
-        double UT = 14.0;
+        int Year = 1980;//2009;
+        int Mon = 4;//6;
+        int Day = 22;//19;
+        //double UT = 14.614353;
+        int Hour = 14;
+        int Min = 36;
+        double Sec = 51.62;
 
         System.out.println("Lon = " + Lon);
         System.out.println("Lat = " + Lat);
@@ -27,9 +30,9 @@ public class Suncalc {
         testDate.set(Calendar.YEAR, Year);
         testDate.set(Calendar.MONTH, Mon-1);
         testDate.set(Calendar.DAY_OF_MONTH, Day);
-        testDate.set(Calendar.HOUR_OF_DAY, (int) UT);
-        testDate.set(Calendar.MINUTE, 0);
-        testDate.set(Calendar.SECOND, 0);
+        testDate.set(Calendar.HOUR_OF_DAY, Hour);
+        testDate.set(Calendar.MINUTE, Min);
+        testDate.set(Calendar.SECOND, (int) Math.round(Sec));
 
         AstroCalc.getSunPosition2(Lat, Lon, testDate);
         //System.out.println("MD = " + AstroCalc.ModD);
