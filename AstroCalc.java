@@ -163,6 +163,35 @@ public class AstroCalc {
 
         return easterDate;
     }
+    //вычисление постоянной B для вычисления звездного времени
+    public static double calcB(Calendar date){
+        date.set(Calendar.MONTH,0);
+        date.set(Calendar.DAY_OF_MONTH,1);
+        //date.add(Calendar.DATE,-1);
+        int year = date.get(Calendar.YEAR);
+        double JD = getJD(date)-1;
+        double S = JD - 2415020.0;
+        double T = S/36525.0;
+        double R = 6.6460656 + 2400.051262*T+0.00002581*T*T;
+        double U = R - 24.0*(year - 1900);
+        double B = 24 - U;
+        return B;
+    }
+    //Перевод из Гринвичского среднего времени (GMT) в гринвичское звездное время (GST)
+    public static double convertTimeGMTToGST(Calendar GMTdate){
+        double A = 0.0657098;
+        double C = 1.002738;
+        //double D = 0.997270;
+        double B = calcB(GMTdate);
+
+        double T = (double) GMTdate.get(Calendar.DAY_OF_YEAR);
+        double T0 = T*A - B;
+        double fragmHourGMT = getFragmentaryHourOfDay(GMTdate);
+        double fragmHourGST = fragmHourGMT*C + T0;
+        if (fragmHourGST > 24) fragmHourGST -= 24;
+        if (fragmHourGST < 0) fragmHourGST += 24;
+        return fragmHourGST;
+    }
     //Вычисление положения Солнца
     public static void getSunPosition(double lat, double lng, Calendar date){
         // 0. Перевод времени в UT
