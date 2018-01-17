@@ -175,6 +175,7 @@ public class AstroCalc {
         double R = 6.6460656 + 2400.051262*T+0.00002581*T*T;
         double U = R - 24.0*(year - 1900);
         double B = 24 - U;
+        System.out.println("func calcB: B = " + B);
         return B;
     }
     //Перевод из Гринвичского среднего времени (GMT) в гринвичское звездное время (GST)
@@ -366,6 +367,8 @@ public class AstroCalc {
         System.out.println("SG = " + SG);
         double ST = SG + Lon; // местное звездное время
         System.out.println("ST = " + ST);
+        double ST2 = convertTimeGMTToGST(date);
+        System.out.println("ST2 = " + ST2);
 
     }
     //Гринвичское звездное время
