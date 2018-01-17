@@ -369,9 +369,9 @@ public class AstroCalc {
 
     }
     //Гринвичское звездное время
-    public static double getGST(Calendar date){
+    /*public static double getGST(Calendar date){
         //Здесь пока ничего нет
         //но скоро будет
         return 0;
-    }
+    }*/
 }
