@@ -372,6 +372,8 @@ public class AstroCalc {
         double ST2 = getGST(date);
         System.out.println("ST2 = " + ST2);
 
+
+
     }
     //Гринвичское звездное время
     public static double getGST(Calendar date){
@@ -380,7 +382,7 @@ public class AstroCalc {
         int Days = (int) getFragmentaryOfDayByTime(date);
         System.out.println("Количество дней от начала года = " + Days);
         double A = 0.0657098;
-        double B = 17.411462;//calcB(date);
+        double B = calcB(date);
         double C = 1.002738;
         double T0 = Days*A - B;
         System.out.println("T0 = " + T0);
