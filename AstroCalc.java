@@ -380,9 +380,23 @@ public class AstroCalc {
         double e = 0.016718; //эксцентриситет орбиты Солнце-Земля
         double d = 0; //число суток после прохождения перигея
         //double M = 360.0/365.2422 - d; // средняя аномалия - угол на который переместилось "среднее" Солнце с момента прохождения черег перигей
-        double D = 0; //число суток прошеждих с начала эпохи (1980 0,0 в нашем случае)
+        double D; //число суток прошеждих с начала эпохи (1980 0,0 в нашем случае)
+        Calendar epoch1980 = new GregorianCalendar(1980,0,1);
+        //D = date - epoch1980;
+        //D = date.compareTo(epoch1980);
+        D = Day;
+        System.out.println("число суток прошеждих с начала эпохи = " + D);
         double M = 360.0/365.2422 * D - Eg + OmegaG; // угол на который переместилось Солнце с начала эпохи
-        double v = 0; //истинная аномалия - при движении не по кругу а по эллипсу
+        System.out.println("угол на который переместилось Солнце с начала эпохи = " + M);
+        while (true){
+            if (M > 360) M -= 360;
+            else break;
+        }
+        while (true){
+            if (M < 0) M += 360;
+            else break;
+        }
+        double v; //истинная аномалия - при движении не по кругу а по эллипсу
         v = M + 360/Math.PI * e * Math.sin(M); //приблизительное значение в градусах
         double Lambda = v + OmegaG; // долгота Солнца в эклиптических координатах
         System.out.println("Эклиптическая долгота = " + Lambda);
@@ -391,7 +405,7 @@ public class AstroCalc {
         // 4. Вычисление Экваториальных координат
 
         double E = 23.441884;//Наклон эклиптики, для эпохи 1980,0
-        //E = ;//наклон эклиптики для другой эпохи
+        E = getEps(date);//наклон эклиптики для другой эпохи
         double Alpha = Math.atan((Math.sin(Lambda) * Math.cos(E) - Math.tan(Beta) * Math.sin(E))/Math.cos(Lambda)); //прямое восхождение
         System.out.println("Прямое восхождение = " + Alpha);
         double Delta = Math.asin(Math.sin(Beta)*Math.cos(E) + Math.cos(Beta)*Math.sin(E)*Math.sin(Lambda));//Склонение
