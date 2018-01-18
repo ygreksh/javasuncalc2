@@ -385,12 +385,18 @@ public class AstroCalc {
         double v = 0; //истинная аномалия - при движении не по кругу а по эллипсу
         v = M + 360/Math.PI * e * Math.sin(M); //приблизительное значение в градусах
         double Lambda = v + OmegaG; // долгота Солнца в эклиптических координатах
-        double Beta = 0; //эклиптическая долгота Солнца
+        System.out.println("Эклиптическая долгота = " + Lambda);
+        double Beta = 0; //эклиптическая широта Солнца
 
         // 4. Вычисление Экваториальных координат
+
         double E = 23.441884;//Наклон эклиптики, для эпохи 1980,0
+        //E = ;//наклон эклиптики для другой эпохи
         double Alpha = Math.atan((Math.sin(Lambda) * Math.cos(E) - Math.tan(Beta) * Math.sin(E))/Math.cos(Lambda)); //прямое восхождение
+        System.out.println("Прямое восхождение = " + Alpha);
         double Delta = Math.asin(Math.sin(Beta)*Math.cos(E) + Math.cos(Beta)*Math.sin(E)*Math.sin(Lambda));//Склонение
+        System.out.println("Склонение = " + Delta);
+
 
 
     }
@@ -412,5 +418,10 @@ public class AstroCalc {
         if (GST > 24) GST -= 24;
         System.out.println("GST = " + GST);
         return GST;
+    }
+    //Вычмсление наклона эклиптики для любой эпохи
+    public static double getEps(Calendar date){
+        double Eps = 23.441884;//в градусах
+        return Eps;
     }
 }
